@@ -311,9 +311,7 @@
 			},
 			"outputCapture": "std",
 			"args": [
-				"--remote-debugging-port=9222",
-				"--grep",
-				"Synced"
+				"--remote-debugging-port=9222"
 			],
 			"cwd": "${workspaceFolder}",
 			"outFiles": [
