@@ -231,7 +231,7 @@ suite('BackupTracker', () => {
 		tracker.dispose();
 	});
 
-	test.only('onWillShutdown - veto if user cancels (hot.exit: off)', async function () {
+	test('onWillShutdown - veto if user cancels (hot.exit: off)', async function () {
 		const [accessor, part, tracker] = await createTracker();
 
 		const resource = toResource.call(this, '/path/index.txt');
