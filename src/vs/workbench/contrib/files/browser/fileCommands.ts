@@ -448,10 +448,10 @@ CommandsRegistry.registerCommand({
 
 CommandsRegistry.registerCommand({
 	id: SAVE_FILES_COMMAND_ID,
-	handler: accessor => {
+	handler: async accessor => {
 		const editorService = accessor.get(IEditorService);
 
-		return editorService.saveAll({ includeUntitled: false, reason: SaveReason.EXPLICIT });
+		await editorService.saveAll({ includeUntitled: false, reason: SaveReason.EXPLICIT });
 	}
 });
 

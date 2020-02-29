@@ -190,17 +190,19 @@ export class CustomEditorInput extends LazilyResolvedWebviewEditorInput {
 		return this.handleMove(groupId, target) || this.editorService.createInput({ resource: target, forceFile: true });
 	}
 
-	public async revert(group: GroupIdentifier, options?: IRevertOptions): Promise<boolean> {
+	public async revert(group: GroupIdentifier, options?: IRevertOptions): Promise<void> {
 		if (!this._model) {
-			return false;
+			return;
 		}
 
 		switch (this._model.type) {
 			case ModelType.Text:
-				return this.textFileService.revert(this.resource, options);
+				await this.textFileService.revert(this.resource, options);
+				break;
 
 			case ModelType.Custom:
-				return this._model.model.revert(options);
+				this._model.model.revert(options);
+				break;
 
 			default:
 				throw new Error('Unknown model type');
