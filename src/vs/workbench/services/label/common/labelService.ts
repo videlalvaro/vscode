@@ -7,7 +7,7 @@ import { localize } from 'vs/nls';
 import { URI } from 'vs/base/common/uri';
 import { IDisposable, Disposable } from 'vs/base/common/lifecycle';
 import * as paths from 'vs/base/common/path';
-import { Event, Emitter } from 'vs/base/common/event';
+import { Emitter } from 'vs/base/common/event';
 import { Extensions as WorkbenchExtensions, IWorkbenchContributionsRegistry, IWorkbenchContribution } from 'vs/workbench/common/contributions';
 import { Registry } from 'vs/platform/registry/common/platform';
 import { IEnvironmentService } from 'vs/platform/environment/common/environment';
@@ -94,17 +94,15 @@ export class LabelService extends Disposable implements ILabelService {
 	_serviceBrand: undefined;
 
 	private formatters: ResourceLabelFormatter[] = [];
+
 	private readonly _onDidChangeFormatters = this._register(new Emitter<IFormatterChangeEvent>());
+	readonly onDidChangeFormatters = this._onDidChangeFormatters.event;
 
 	constructor(
 		@IEnvironmentService private readonly environmentService: IEnvironmentService,
 		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
 	) {
 		super();
-	}
-
-	get onDidChangeFormatters(): Event<IFormatterChangeEvent> {
-		return this._onDidChangeFormatters.event;
 	}
 
 	findFormatting(resource: URI): ResourceLabelFormatting | undefined {

@@ -616,7 +616,12 @@ export abstract class TextResourceEditorInput extends EditorInput {
 
 	private onLabelEvent(scheme: string): void {
 		if (scheme === this.resource.scheme) {
+
+			// Clear any cached labels from before
 			TextResourceEditorInput.MEMOIZER.clear();
+
+			// Trigger recompute of label
+			this._onDidChangeLabel.fire();
 		}
 	}
 

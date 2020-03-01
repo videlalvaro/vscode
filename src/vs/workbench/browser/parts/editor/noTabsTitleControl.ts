@@ -157,8 +157,8 @@ export class NoTabsTitleControl extends TitleControl {
 		this.ifEditorIsActive(editor, () => this.redraw());
 	}
 
-	updateEditorLabels(scheme?: string): void {
-		if (this.group.activeEditor && (!scheme || scheme === this.group.activeEditor.resource?.scheme)) {
+	updateEditorLabels(): void {
+		if (this.group.activeEditor) {
 			this.updateEditorLabel(this.group.activeEditor); // we only have the active one to update
 		}
 	}
