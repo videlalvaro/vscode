@@ -398,7 +398,12 @@ export class TabsTitleControl extends TitleControl {
 		this.updateEditorLabels();
 	}
 
-	updateEditorLabels(): void {
+	updateEditorLabels(scheme?: string): void {
+
+		// Return early if we got a scheme but no editor opened with that scheme
+		if (scheme && !this.group.editors.some(editor => editor.resource?.scheme === scheme)) {
+			return;
+		}
 
 		// A change to a label requires to recompute all labels
 		this.computeTabLabels();

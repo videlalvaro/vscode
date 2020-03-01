@@ -97,8 +97,14 @@ export abstract class TitleControl extends Themable {
 	}
 
 	private registerListeners(): void {
+
+		// Update actions toolbar when extension register that may contribute them
 		this._register(this.extensionService.onDidRegisterExtensions(() => this.updateEditorActionsToolbar()));
-		this._register(this.labelService.onDidChangeFormatters(() => this.updateEditorLabels()));
+
+		// Update editor labels on events that potentially can alter the labels
+		this._register(this.labelService.onDidChangeFormatters(e => this.updateEditorLabels(e.scheme)));
+		this._register(this.fileService.onDidChangeFileSystemProviderCapabilities(e => this.updateEditorLabels(e.scheme)));
+		this._register(this.fileService.onDidChangeFileSystemProviderRegistrations(e => this.updateEditorLabels(e.scheme)));
 	}
 
 	protected abstract create(parent: HTMLElement): void;
@@ -363,7 +369,7 @@ export abstract class TitleControl extends Themable {
 
 	abstract updateEditorLabel(editor: IEditorInput): void;
 
-	abstract updateEditorLabels(): void;
+	abstract updateEditorLabels(scheme?: string): void;
 
 	abstract updateEditorDirty(editor: IEditorInput): void;
 

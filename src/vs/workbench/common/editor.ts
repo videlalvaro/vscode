@@ -609,8 +609,15 @@ export abstract class TextResourceEditorInput extends EditorInput {
 	protected registerListeners(): void {
 
 		// Clear label memoizer on certain events that have impact
-		this._register(this.labelService.onDidChangeFormatters(() => TextResourceEditorInput.MEMOIZER.clear()));
-		this._register(this.fileService.onDidChangeFileSystemProviderRegistrations(() => TextResourceEditorInput.MEMOIZER.clear()));
+		this._register(this.labelService.onDidChangeFormatters(e => this.onLabelEvent(e.scheme)));
+		this._register(this.fileService.onDidChangeFileSystemProviderRegistrations(e => this.onLabelEvent(e.scheme)));
+		this._register(this.fileService.onDidChangeFileSystemProviderCapabilities(e => this.onLabelEvent(e.scheme)));
+	}
+
+	private onLabelEvent(scheme: string): void {
+		if (scheme === this.resource.scheme) {
+			TextResourceEditorInput.MEMOIZER.clear();
+		}
 	}
 
 	getName(): string {
