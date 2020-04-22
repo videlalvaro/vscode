@@ -253,6 +253,7 @@ export class HSVA {
 	}
 }
 
+// this color works with RGBA & HSLA
 export class Color {
 
 	static fromHex(hex: string): Color {

@@ -1524,6 +1524,7 @@ export class DocumentLink {
 	}
 }
 
+// this color takes RGB as individual params
 @es5ClassCompat
 export class Color {
 	readonly red: number;
